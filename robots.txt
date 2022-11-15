@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: *?*
+Disallow: *.json
+Disallow: */print
+Disallow: *.max
+Sitemap: https://bakery.irish-pub.by/sitemap.xml
+Host: bakery.irish-pub.by
