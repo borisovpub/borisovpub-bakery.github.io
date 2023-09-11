@@ -50,6 +50,7 @@
 			top: 50%;
 			transform: translate( -50%, calc( -50% - 140px ) );
 			opacity: 0.5;
+			filter: drop-shadow( 0 0 30px #000 ) drop-shadow( 0 0 15px #000 ) drop-shadow( 0 0 15px #000 );
 		}
 
 		#title {
@@ -166,12 +167,10 @@
 		}
 
 		header .video {
-			position: absolute;
 			top: 0;
 			left: 0;
 			width: 100%;
 			height: 100%;
-			z-index: -1;
 			background: #333;
 		}
 
@@ -451,7 +450,7 @@
 
 			"openingHoursSpecification": {
 				"@type": "OpeningHoursSpecification",
-				"opens": "08:00",
+				"opens": "07:30",
 				"closes": "20:00"
 			},
 
@@ -479,7 +478,7 @@
 
 <body>
 
-<header style="background:#333">
+<header>
 
 	<div id="burger" class="aside"></div>
 
@@ -491,7 +490,7 @@
 	</div>
 
 	<!--	<div id="mode">-->
-	<!--		<div id="close">Откроется сегодня в <time>08:00</time></div>-->
+	<!--		<div id="close">Откроется сегодня в <time>07:30</time></div>-->
 	<!--		<div id="open">Работает сегодня до <time>20:00</time></div>-->
 	<!--	</div>-->
 
@@ -510,13 +509,11 @@
 		<!--		<li><a href="viber://chat?number=%2B375447661089" title="Viber"><img src="//irish-pub.by/@/vb.svg" width="30" height="30" alt="Viber" /></a></li>-->
 	</ul>
 
-	<!--	<img class="fit down video" src="//irish-pub.by/@/bg.webp" width="1280" height="720"/>-->
-	<!--
-	<video class="fit down" autoplay="autoplay" loop="loop" playsinline="playsinline" muted="muted" poster="//irish-pub.by/@/bg.webp" width="1280" height="720">
-		<source src="//irish-pub.by/@/bg.webm" type="video/webm" />
-		<source src="//irish-pub.by/@/bg.mp4" type="video/mp4" />
-	</video>
-	-->
+	<img class="fit down video" src="/@/bg.webp" width="1280" height="720" />
+	<!--	<video class="fit down" autoplay="autoplay" loop="loop" playsinline="playsinline" muted="muted" poster="/@/bg.webp" width="1280" height="720">-->
+	<!--		<source src="//irish-pub.by/@/bg.webm" type="video/webm" />-->
+	<!--		<source src="//irish-pub.by/@/bg.mp4" type="video/mp4" />-->
+	<!--	</video>-->
 
 </header>
 
@@ -607,7 +604,7 @@
 <footer>
 	<iframe loading="lazy" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDtPwB4fVdWFMnXP99EEPr9zp2gX3DSqZM&q=place_id:ChIJmdqc08j52kYRq1LCEzzR6q8&language=ru_RU" title="Google Maps" width="100%" height="450" scrolling="no" allowfullscreen="allowfullscreen"></iframe>
 	<section>
-		<div>Мы работаем ежедневно<br /><time datetime="Mo-Su 08:00-20:00">с 08:00 до 20:00</time><br /><a href="//delivery.irish-pub.by">Доставка</a><br /><time datetime="Mo-Su 11:30-20:00">с 11:30 до 22:00</time></div>
+		<div>Мы работаем ежедневно<br /><time datetime="Mo-Su 07:30-20:00">с 07:30 до 20:00</time><br /><a href="//delivery.irish-pub.by">Доставка</a><br /><time datetime="Mo-Su 11:30-20:00">с 11:30 до 22:00</time></div>
 		<div>
 			<!--			<a class="i" href="tel:+375447661089">+375 (44) 766-10-89</a><br />-->
 			<a class="i" href="mailto:bakery@irish-pub.by">bakery@irish-pub.by</a>
@@ -629,7 +626,7 @@
 	// 	var d = new Date();
 	// 	d = d.getUTCHours() * 60 + d.getUTCMinutes();
 	//
-	// 	if ( ( 8 - 3 ) * 60 <= d && d < ( 20 - 3 ) * 60 ) {
+	// 	if ( ( 7.3 - 3 ) * 60 <= d && d < ( 20 - 3 ) * 60 ) {
 	// 		mode.setAttribute( 'class', 'open' );
 	// 	} else {
 	// 		mode.setAttribute( 'class', 'close' );
