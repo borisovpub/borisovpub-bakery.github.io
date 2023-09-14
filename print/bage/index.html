@@ -104,7 +104,6 @@
 	<template id="form">
 		<form>
 			<label>Имя: <input type="text" name="name" /></label>
-			<label>Должность: <input type="text" name="prof" /></label>
 		</form>
 	</template>
 
@@ -136,11 +135,9 @@
 
 		for ( let o of bages ) {
 
-			let [ n, p ] = o.split( ',' );
 			let bageNode = cloneNode( bageTemplate );
 
-			querySelector( bageNode, '.name' ).textContent = n;
-			querySelector( bageNode, '.prof' ).textContent = p;
+			querySelector( bageNode, '.name' ).textContent = o;
 
 			appendChild( page, bageNode );
 
@@ -153,13 +150,9 @@
 				let width = 0.8 * 340.15625 /* bageNode.getBoundingClientRect().width */;
 
 				let name = querySelector( bageNode, '.name' );
-				let prof = querySelector( bageNode, '.prof' );
 
 				name.style.fontSize =
 					window.Math.min( 26 * width / name.getBoundingClientRect().width, 50 ) + 'pt';
-
-				prof.style.fontSize =
-					26 * width / window.Math.max( prof.getBoundingClientRect().width, width ) + 'pt';
 
 			}
 
@@ -189,8 +182,7 @@
 			const arr = [];
 			for ( let form of page.querySelectorAll( 'form' ) ) {
 				let n = querySelector( form, '[name="name"]' ).value;
-				let p = querySelector( form, '[name="prof"]' ).value;
-				if ( n ) arr.push( n + ',' + p );
+				if ( n ) arr.push( n );
 			}
 
 			window.location = '?' + window.encodeURIComponent( arr.join( ';' ) );
