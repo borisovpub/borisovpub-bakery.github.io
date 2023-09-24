@@ -429,20 +429,16 @@
 	<div class="h1" id="title">Пекарня<br/>«Колоски»<i>в Борисове</i></div>
 	<img class="logo" src="/@/logo.svg" width="100" height="100" alt="&#127808;" />
 
-	<div id="mode" class="close">
-		<div id="close">Мы делаем всё,<br />что бы открыться поскорее!</div>
+	<div id="mode">
+		<div id="close">Откроется сегодня в <time>07:30</time></div>
+		<div id="open">Работает сегодня до <time>20:00</time></div>
 	</div>
 
-	<!--	<div id="mode">-->
-	<!--		<div id="close">Откроется сегодня в <time>07:30</time></div>-->
-	<!--		<div id="open">Работает сегодня до <time>20:00</time></div>-->
-	<!--	</div>-->
-
-	<nav>
-		<ul class="inline">
-			<li class="h1 delivery"><a href="//delivery.irish-pub.by/collection/bakery">Доставка</a></li>
-		</ul>
-	</nav>
+<!--	<nav>-->
+<!--		<ul class="inline">-->
+<!--			<li class="h1 delivery"><a href="//delivery.irish-pub.by/collection/bakery">Доставка</a></li>-->
+<!--		</ul>-->
+<!--	</nav>-->
 
 	<ul class="inline social">
 		<li><a href="//instagram.com/borisov_bakery" target="_blank" rel="noopener noreferrer" title="Instagram"><img alt="Instagram" src="//irish-pub.by/@/ig.svg" width="30" height="30" /></a></li>
@@ -521,7 +517,7 @@
 		</ul>
 		-->
 		<ul class="hr flatten">
-			<li><a href="//delivery.irish-pub.by/collection/bakery">Доставка</a></li>
+<!--			<li><a href="//delivery.irish-pub.by/collection/bakery">Доставка</a></li>-->
 			<li><a href="//irish-pub.by/ru/">Ирландский Паб в Борисове</a></li>
 		</ul>
 		<ul class="hr inline social">
@@ -543,7 +539,7 @@
 <footer>
 	<iframe loading="lazy" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDtPwB4fVdWFMnXP99EEPr9zp2gX3DSqZM&q=place_id:ChIJmdqc08j52kYRq1LCEzzR6q8&language=ru_RU" title="Google Maps" width="100%" height="450" scrolling="no" allowfullscreen="allowfullscreen"></iframe>
 	<section>
-		<div>Мы работаем ежедневно<br /><time datetime="Mo-Su 07:30-20:00">с 07:30 до 20:00</time><br /><a href="//delivery.irish-pub.by/collection/bakery">Доставка</a><br /><time datetime="Mo-Su 11:30-20:00">с 11:30 до 22:00</time></div>
+		<div>Мы работаем ежедневно<br /><time datetime="Mo-Su 07:30-20:00">с 07:30 до 20:00</time><br /><!--<a href="//delivery.irish-pub.by/collection/bakery">Доставка</a><br />--><time datetime="Mo-Su 11:30-20:00">с 11:30 до 22:00</time></div>
 		<div>
 			<a class="i" href="tel:+375291739600">+375 (29) 173-96-00</a><br />
 			<a class="i" href="mailto:bakery@irish-pub.by">bakery@irish-pub.by</a>
@@ -557,22 +553,22 @@
 
 <script>!function( /** Window */ window ) {
 
-	// var mode = window.document.querySelector( '#mode' );
-	//
-	// ( function update() {
-	//
-	// 	var d = new Date();
-	// 	d = d.getUTCHours() * 60 + d.getUTCMinutes();
-	//
-	// 	if ( ( 7.5 - 3 ) * 60 <= d && d < ( 20 - 3 ) * 60 ) {
-	// 		mode.setAttribute( 'class', 'open' );
-	// 	} else {
-	// 		mode.setAttribute( 'class', 'close' );
-	// 	}
-	//
-	// 	window.setTimeout( update, 60*1e3 );
-	//
-	// } )();
+	var mode = window.document.querySelector( '#mode' );
+
+	( function update() {
+
+		var d = new Date();
+		d = d.getUTCHours() * 60 + d.getUTCMinutes();
+
+		if ( ( 7.5 - 3 ) * 60 <= d && d < ( 20 - 3 ) * 60 ) {
+			mode.setAttribute( 'class', 'open' );
+		} else {
+			mode.setAttribute( 'class', 'close' );
+		}
+
+		window.setTimeout( update, 60*1e3 );
+
+	} )();
 
 }( this )</script>
 
