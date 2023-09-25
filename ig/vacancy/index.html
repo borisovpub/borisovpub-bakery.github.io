@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru" xml:lang="ru" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+	<title>Вакансия | Instagram</title>
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
+
+	<style media="all">
+
+		*,
+		:after,
+		:before {
+			margin: 0;
+			padding: 0;
+		}
+
+		ul {
+			list-style-type: none;
+		}
+
+		body {
+			background: #fff;
+		}
+
+		button {
+			display: block;
+			margin: 10px;
+			padding: 5px;
+			min-width: 100px;
+		}
+
+		form {
+			padding: 10px;
+			line-height: 24px;
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+<div class="page">
+	<form>
+		В наш дружный коллектив требуются <input class="prof" value="пекари и кондитеры" />!<br />По всем вопросам в директ или по телефону <input class="tel" value="+375 (33) 661-24-56" />
+	</form>
+	<button>Скачать</button>
+</div>
+
+<script>( ( /** Window */ window ) => {
+
+	/** @noinline */
+	var querySelector = ( node, selector ) => node.querySelector( selector );
+
+	var document = window.document;
+
+	var page = querySelector( document, '.page' );
+	var button = querySelector( document, 'button' );
+
+	button.addEventListener( 'click', async () => {
+
+		button.disabled = true;
+
+		const getDataURL = ( uri ) => new window.Promise( async ( resolve, reject ) => {
+
+			const reader = new window.FileReader();
+
+			reader.addEventListener( 'error', reject );
+			reader.addEventListener( 'load', () => resolve( reader.result ) );
+
+			reader.readAsDataURL( await ( await window.fetch( uri ) ).blob() );
+
+		} );
+
+		const dataURL = await new window.Promise( async ( resolve, reject ) => {
+
+			var img = new window.Image();
+
+			img.addEventListener( 'load', () => {
+
+				var canvas = document.createElement( 'canvas' );
+				canvas.width = 1080;
+				canvas.height = 1920;
+
+				var context = canvas.getContext( '2d' );
+				context.drawImage( img, 0, 0, 1080, 1920 );
+
+				page.appendChild( canvas );
+
+				resolve( canvas.toDataURL() );
+
+			} );
+
+			img.setAttribute( 'src', 'data:image/svg+xml;utf8,' + window.encodeURIComponent( `
+				<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+					<style>
+						@font-face {
+							font-family: "Open Sans Condensed Light";
+							src: local( "Open Sans Condensed Light" ),
+								url( "${ await getDataURL( '/@/OpenSansCondensed-Light.ttf' ) }" );
+						}
+						text {
+							text-transform: uppercase;
+							font-family: "Open Sans Condensed Light", Arial, sans-serif;
+							font-size: 60px;
+							fill: #fff;
+						}
+						text > * {
+							text-anchor: middle;
+						}
+					</style>
+					<image href="${ await getDataURL( 'bg.png' ) }" width="1080" height="1920" />
+					<text transform="translate(540,420)">
+						<tspan x="0" dy="0">В наш дружный</tspan>
+						<tspan x="0" dy="80">коллектив требуются</tspan>
+						<tspan x="0" dy="80">${ querySelector( document, '.prof' ).value }!</tspan>
+						<tspan x="0" dy="140">По всем вопросам в директ</tspan>
+						<tspan x="0" dy="80">или по телефону</tspan>
+						<tspan x="0" dy="80">${ querySelector( document, '.tel' ).value }</tspan>
+					</text>
+				</svg>
+			` ) );
+
+		} );
+
+		const a = document.createElement( 'a' );
+		a.setAttribute( 'href', dataURL );
+		a.setAttribute( 'download', 'vacancy.png' );
+		a.style.display = 'none';
+
+		// page.appendChild( a );
+		// a.click();
+		// page.removeChild( a );
+
+		button.disabled = false;
+
+	} );
+
+} )( this )</script>
+
+</body>
+
+</html>
