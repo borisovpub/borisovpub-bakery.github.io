@@ -89,8 +89,6 @@
 				var context = canvas.getContext( '2d' );
 				context.drawImage( img, 0, 0, 1080, 1920 );
 
-				page.appendChild( canvas );
-
 				resolve( canvas.toDataURL() );
 
 			} );
@@ -132,9 +130,9 @@
 		a.setAttribute( 'download', 'vacancy.png' );
 		a.style.display = 'none';
 
-		// page.appendChild( a );
-		// a.click();
-		// page.removeChild( a );
+		page.appendChild( a );
+		a.click();
+		page.removeChild( a );
 
 		button.disabled = false;
 
