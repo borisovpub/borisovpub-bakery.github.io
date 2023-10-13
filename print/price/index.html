@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru" xml:lang="ru" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+	<title>Ценники | Печать</title>
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
+
+	<style media="all">
+
+		@page {
+			size: A4 landscape;
+			margin: 0;
+		}
+
+		@media screen {
+			html {
+				background: #999;
+			}
+		}
+
+		@font-face {
+			font-family: "Open Sans Condensed Light";
+			src: local( "Open Sans Condensed Light" ),
+			url( "//irish-pub.by/@/OpenSansCondensed-Light.ttf" );
+		}
+
+		*,
+		:after,
+		:before {
+			margin: 0;
+			padding: 0;
+		}
+
+		ul {
+			list-style-type: none;
+		}
+
+		body {
+			height: 210mm;
+			width: 297mm;
+			background: #fff;
+		}
+
+		.page {
+
+			background: #fff;
+			display: block;
+			padding: 4mm;
+
+		}
+
+		.page > * {
+			overflow: hidden;
+		}
+
+		.price {
+			display: inline-block;
+			height: 8cm;
+			width: 144mm;
+			-webkit-print-color-adjust: exact !important;
+			font-family: "Open Sans Condensed Light", Arial, sans-serif;
+			font-size: 60pt;
+			background: #444;
+			color: #fff;
+			text-transform: uppercase;
+			text-align: center;
+			position: relative;
+			transform-origin: top left;
+			float: left;
+			outline: 0.5mm solid #fff;
+		}
+
+		.price > * {
+			display: table-cell;
+			vertical-align: middle;
+			position: absolute;
+			width: 100%;
+			top: calc( 8cm - 32mm );
+			left: 0;
+		}
+
+		.price > div {
+			height: calc( 8cm - 32mm );
+			line-height: calc( 8cm - 32mm );
+			top: 0;
+			vertical-align: middle;
+		}
+
+		.price > hr {
+			width: 100mm;
+			height: 0.5mm;
+			left: 22mm;
+			background: #fff;
+		}
+
+		.price > span {
+			height: 32mm;
+			line-height: 32mm;
+		}
+
+		.price .line-2 {
+			display: none;
+		}
+
+		.price.double > div {
+			line-height: 16mm;
+			padding: 8mm 0;
+		}
+
+		.price.double .line-2 {
+			display: inline;
+		}
+
+		button,
+		input {
+			margin-right: 10px;
+		}
+
+		form,
+		button {
+			display: block;
+			margin-bottom: 10px;
+			padding: 5px;
+			min-width: 100px;
+		}
+
+	</style>
+
+	<template id="price">
+		<div class="price">
+			<div>
+				<span class="line-1"></span><br /><span class="line-2"></span>
+			</div>
+			<hr />
+			<span class="cost"></span>
+		</div>
+	</template>
+
+	<template id="form">
+		<form>
+			<label>1-я строка: <input type="text" name="line-1" /></label><br />
+			<label>2-я строка: <input type="text" name="line-2" /></label><br />
+			<label>Цена: <input type="text" name="cost" /></label>
+		</form>
+	</template>
+
+</head>
+
+<body>
+
+<div class="page"></div>
+
+<script>( ( /** Window */ window ) => {
+
+	/** @noinline */
+	var querySelector = ( node, selector ) => node.querySelector( selector );
+	/** @noinline */
+	var cloneNode = ( node ) => document.importNode( node.content, true );
+	/** @noinline */
+	var appendChild = ( node, child ) => node.appendChild( child );
+
+	var document = window.document;
+
+	var page = querySelector( document, '.page' );
+
+	var prices = window.decodeURIComponent( window.location.search.replace( /^\?/, '' ) ).trim();
+	if ( prices.length > 0 ) {
+
+		prices = prices.split( ';' );
+
+		let priceTemplate = querySelector( document, '#price' );
+
+		for ( let o of prices ) {
+
+			let [ l1, l2, c ] = o.split( ',' );
+
+			let priceNode = cloneNode( priceTemplate );
+
+			if ( l2 ) querySelector( priceNode, '.price' ).classList.add( 'double' );
+
+			querySelector( priceNode, '.line-1' ).textContent = l1;
+			querySelector( priceNode, '.line-2' ).textContent = l2;
+			querySelector( priceNode, '.cost' ).textContent = parseFloat( c ).toFixed( 2 );
+
+			appendChild( page, priceNode );
+
+		}
+
+		document.fonts.addEventListener( 'loadingdone', () => {
+
+			// for ( let priceNode of document.querySelectorAll( '.price' ) ) {
+			//
+			// 	let width = 0.8 * 340.15625 /* priceNode.getBoundingClientRect().width */;
+			//
+			// 	let name = querySelector( priceNode, '.name' );
+			//
+			// 	name.style.fontSize =
+			// 		window.Math.min( 26 * width / name.getBoundingClientRect().width, 50 ) + 'pt';
+			//
+			// }
+
+		}, { once: true } );
+
+	} else {
+
+		let addButton = document.createElement( 'button' );
+		let submitButton = document.createElement( 'button' );
+
+		let formTemplate = querySelector( document, '#form' );
+
+		const add = () => page.insertBefore( cloneNode( formTemplate ), addButton );
+
+		addButton.textContent = 'Добавить';
+		submitButton.textContent = 'На печать';
+
+		addButton.addEventListener( 'click', add );
+
+		appendChild( page, addButton );
+		appendChild( page, submitButton );
+
+		add();
+
+		submitButton.addEventListener( 'click', () => {
+
+			const arr = [];
+			for ( let form of page.querySelectorAll( 'form' ) ) {
+				let l1 = querySelector( form, '[name="line-1"]' ).value.trim();
+				let l2 = querySelector( form, '[name="line-2"]' ).value.trim();
+				let c = querySelector( form, '[name="cost"]' ).value.trim();
+				arr.push( [ l1, l2, c ] );
+			}
+
+			window.location = '?' + window.encodeURIComponent( arr.join( ';' ) );
+
+		} );
+
+	}
+
+} )( this )</script>
+
+</body>
+
+</html>
