@@ -31,6 +31,7 @@
 		*,
 		:after,
 		:before {
+			border: 0;
 			margin: 0;
 			padding: 0;
 		}
@@ -58,61 +59,62 @@
 		}
 
 		.price {
+
+			--width: 144mm;
+			--height: 8cm;
+			--hr: 0.5mm;
+			--cost: 26mm;
+			--padding: 5mm;
+
 			display: inline-block;
-			height: 8cm;
-			width: 144mm;
+			height: var( --height );
+			width: var( --width );
 			-webkit-print-color-adjust: exact !important;
 			font-family: "Open Sans Condensed Light", Arial, sans-serif;
 			font-size: 60pt;
 			background: #444;
 			color: #fff;
 			text-transform: uppercase;
-			text-align: center;
 			position: relative;
 			transform-origin: top left;
 			float: left;
 			outline: 0.5mm solid #fff;
+			line-height: 18mm;
+			border-spacing: 0;
+
 		}
 
-		.price > * {
-			display: table-cell;
+		.price td {
+			text-align: center;
 			vertical-align: middle;
-			position: absolute;
-			width: 100%;
-			top: calc( 8cm - 32mm );
-			left: 0;
+			padding-bottom: 3mm;
 		}
 
-		.price > div {
-			height: calc( 8cm - 32mm );
-			line-height: calc( 8cm - 32mm );
-			top: 0;
-			vertical-align: middle;
+		.price tr:nth-child( 2 ) td {
+			padding-bottom: 0;
 		}
 
-		.price > hr {
+		.price tr:nth-child( 1 ) {
+			height: calc( var( --height ) - var( --hr ) - var( --cost ) );
+		}
+
+		.price tr:nth-child( 2 ) {
+			height: calc( var( --hr ) );
+		}
+
+		.price tr:nth-child( 3 ) {
+			height: calc( var( --cost ) );
+		}
+
+		.price hr {
 			width: 100mm;
-			height: 0.5mm;
-			left: 22mm;
+			height: var( --hr );
+			margin: 0 22mm;
 			background: #fff;
 		}
 
-		.price > span {
-			height: 32mm;
-			line-height: 32mm;
-		}
-
-		.price .line-2 {
-			display: none;
-		}
-
-		.price.double > div {
-			line-height: 16mm;
-			padding: 8mm 0;
-		}
-
-		.price.double .line-2 {
-			display: inline;
+		.price:nth-child( 4n ) {
+			page-break-after: always;
 		}
 
 		button,
@@ -131,19 +133,18 @@
 	</style>
 
 	<template id="price">
-		<div class="price">
-			<div>
-				<span class="line-1"></span><br /><span class="line-2"></span>
-			</div>
-			<hr />
-			<span class="cost"></span>
-		</div>
+		<table class="price">
+			<tbody>
+			<tr><td class="name"></td></tr>
+			<tr><td><hr /></td></tr>
+			<tr><td class="cost"></td></tr>
+			</tbody>
+		</table>
 	</template>
 
 	<template id="form">
 		<form>
-			<label>1-я строка: <input type="text" name="line-1" /></label><br />
-			<label>2-я строка: <input type="text" name="line-2" /></label><br />
+			<label>Название: <textarea name="name"></textarea></label><br />
 			<label>Цена: <input type="text" name="cost" /></label>
 		</form>
 	</template>
@@ -163,6 +164,8 @@
 	/** @noinline */
 	var appendChild = ( node, child ) => node.appendChild( child );
 
+	var parseFloat = window.parseFloat;
+
 	var document = window.document;
 
 	var page = querySelector( document, '.page' );
@@ -176,14 +179,11 @@
 
 		for ( let o of prices ) {
 
-			let [ l1, l2, c ] = o.split( ',' );
+			let [ n, c ] = o.split( ',' );
 
 			let priceNode = cloneNode( priceTemplate );
 
-			if ( l2 ) querySelector( priceNode, '.price' ).classList.add( 'double' );
-
-			querySelector( priceNode, '.line-1' ).textContent = l1;
-			querySelector( priceNode, '.line-2' ).textContent = l2;
+			querySelector( priceNode, '.name' ).textContent = n;
 			querySelector( priceNode, '.cost' ).textContent = parseFloat( c ).toFixed( 2 );
 
 			appendChild( page, priceNode );
@@ -192,16 +192,17 @@
 
 		document.fonts.addEventListener( 'loadingdone', () => {
 
-			// for ( let priceNode of document.querySelectorAll( '.price' ) ) {
-			//
-			// 	let width = 0.8 * 340.15625 /* priceNode.getBoundingClientRect().width */;
-			//
-			// 	let name = querySelector( priceNode, '.name' );
-			//
-			// 	name.style.fontSize =
-			// 		window.Math.min( 26 * width / name.getBoundingClientRect().width, 50 ) + 'pt';
-			//
-			// }
+			for ( let priceNode of document.querySelectorAll( '.price' ) ) {
+
+				let name = querySelector( priceNode, '.name' );
+				while ( name.getBoundingClientRect().width > 544.25 ) {
+
+					let f = name.computedStyleMap().get( 'font-size' );
+					name.style.fontSize = f.value * 0.85 + f.unit;
+
+				}
+
+			}
 
 		}, { once: true } );
 
@@ -228,10 +229,9 @@
 
 			const arr = [];
 			for ( let form of page.querySelectorAll( 'form' ) ) {
-				let l1 = querySelector( form, '[name="line-1"]' ).value.trim();
-				let l2 = querySelector( form, '[name="line-2"]' ).value.trim();
-				let c = querySelector( form, '[name="cost"]' ).value.trim();
-				arr.push( [ l1, l2, c ] );
+				let n = querySelector( form, '[name="name"]' ).value.trim();
+				let c = parseFloat( querySelector( form, '[name="cost"]' ).value.trim().replace( ',', '.' ) );
+				if ( n && c ) arr.push( [ n, c ] );
 			}
 
 			window.location = '?' + window.encodeURIComponent( arr.join( ';' ) );
