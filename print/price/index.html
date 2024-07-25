@@ -241,7 +241,7 @@
 
 			const arr = [];
 			for ( let form of page.querySelectorAll( 'form' ) ) {
-				let n = querySelector( form, '[name="name"]' ).value.trim();
+				let n = querySelector( form, '[name="name"]' ).value.trim().replace( ',', '' );
 				let c = parseFloat( querySelector( form, '[name="cost"]' ).value.trim().replace( ',', '.' ) );
 				if ( n && c ) arr.push( [ n, c ] );
 			}
