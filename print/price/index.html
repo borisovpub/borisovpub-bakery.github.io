@@ -31,7 +31,7 @@
 		*,
 		:after,
 		:before {
-			border: 0;
+			border-width: 0;
 			margin: 0;
 			padding: 0;
 		}
@@ -87,7 +87,8 @@
 		.price td {
 			text-align: center;
 			vertical-align: middle;
-			padding-bottom: 3mm;
+			padding-bottom: 2mm;
+			border-width: 0;
 		}
 
 		.price tr:nth-child( 2 ) td {
@@ -118,8 +119,10 @@
 		}
 
 		button,
-		input {
+		input,
+		textarea {
 			margin-right: 10px;
+			border-width: 1px;
 		}
 
 		form,
@@ -194,11 +197,20 @@
 
 			for ( let priceNode of document.querySelectorAll( '.price' ) ) {
 
-				let name = querySelector( priceNode, '.name' );
-				while ( name.getBoundingClientRect().width > 544.25 ) {
+				let tbody = querySelector( priceNode, 'tbody' );
+				let r = tbody.getBoundingClientRect();
 
-					let f = name.computedStyleMap().get( 'font-size' );
-					name.style.fontSize = f.value * 0.85 + f.unit;
+				while ( r.width > 544.25 || r.height > 302.36 ) {
+
+					let v, m = tbody.computedStyleMap();
+					v = m.get( 'font-size' );
+					tbody.style.fontSize = v.value * 0.85 + v.unit;
+					v = m.get( 'line-height' );
+					tbody.style.lineHeight = v.value * 0.85 + v.unit;
+
+					if ( v.value < 1 ) break;
+
+					r = tbody.getBoundingClientRect();
 
 				}
 
