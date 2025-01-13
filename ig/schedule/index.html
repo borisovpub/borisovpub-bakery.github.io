@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru" xml:lang="ru" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+	<title>Расписание выпечки | Instagram</title>
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
+
+	<style media="all">
+
+		*,
+		:after,
+		:before {
+			margin: 0;
+			padding: 0;
+		}
+
+		ul {
+			list-style-type: none;
+		}
+
+		body {
+			background: #fff;
+		}
+
+		button {
+			display: block;
+			margin: 10px;
+			padding: 5px;
+			min-width: 100px;
+		}
+
+	</style>
+
+	<template id="select">
+		<form>
+			<label>
+				Время:
+				<input type="time" name="time" />
+			</label>
+			<label>
+				Продукция:
+				<select multiple="multiple" name="production">
+					<optgroup label="Хлеб"></optgroup>
+					<optgroup label="Выпечка"></optgroup>
+				</select>
+			</label>
+		</form>
+	</template>
+
+</head>
+
+<body>
+
+<div class="page"></div>
+
+<script type="module">
+
+	import iiko from '//irish-pub.by/@/iiko.max.mjs';
+
+	const page = document.querySelector( '.page' );
+
+	const addButton = document.createElement( 'button' );
+	const submitButton = document.createElement( 'button' );
+
+	const selectTemplate = document.querySelector( '#select' );
+
+	const updateSelect = () => {
+
+		const map = {};
+
+		const options = document.querySelectorAll( 'option' );
+
+		options.forEach( ( option ) => {
+			option.disabled = false;
+			if ( option.selected ) {
+				map[ option.value ] = option;
+			}
+		} );
+
+		options.forEach( ( option ) => {
+			if ( option.value in map && map[ option.value ] !== option ) {
+				option.disabled = true;
+			}
+		} );
+
+	};
+
+	const addSelect = ( time = null, selected = [] ) => {
+
+		const select = selectTemplate.content.cloneNode( true );
+
+		select.querySelector( 'select' ).addEventListener( 'change', updateSelect );
+
+		select.querySelector( 'input' ).value = time;
+
+		breads.forEach( ( name ) => {
+			const option = select.querySelector( 'optgroup:first-child' ).appendChild( document.createElement( 'option' ) );
+			option.textContent = name;
+			if ( selected.includes( name ) ) option.selected = true;
+		} );
+
+		pastries.forEach( ( name ) => {
+			const option = select.querySelector( 'optgroup:last-child' ).appendChild( document.createElement( 'option' ) );
+			option.textContent = name;
+			if ( selected.includes( name ) ) option.selected = true;
+		} );
+
+		page.insertBefore( select, addButton );
+
+		updateSelect();
+
+	};
+
+	const aliases = {
+		'Булочка': 'Булочки',
+		'Ватрушка': 'Ватрушки',
+		'Бренцель': 'Бренцели',
+		'Гриссини': 'Гриссини',
+		'Плюшка': 'Плюшки',
+		'Синнабон': 'Синнабоны',
+	};
+
+	const aliasExp = new RegExp( Object.keys( aliases ).join( '|' ) );
+
+	const breads = [];
+	const pastries = [];
+
+	const bakery = await iiko( 'c0fb15d5-a217-41d1-b035-e32aa2043b94' );
+
+	bakery.groups.Bread.products.forEach( ( bread ) => {
+		breads.push( bread.ru );
+	} );
+
+	bakery.groups.Pastries.products.forEach( ( pastry ) => {
+		let name = aliases[ aliasExp.exec( pastry.ru )[ 0 ] ] || pastry.ru;
+		if ( !pastries.includes( name ) ) {
+			pastries.push( name );
+		}
+	} );
+
+	addButton.textContent = 'Добавить';
+	submitButton.textContent = 'Скачать';
+
+	addButton.addEventListener( 'click', addSelect );
+
+	page.appendChild( addButton );
+	page.appendChild( submitButton );
+
+	addSelect( '09:00', [ 'Чиабатта белая', 'Чиабатта тёмная' ] );
+	addSelect( '11:00', [ 'Хлеб "Луковый"' ] );
+	addSelect( '14:00', [ 'Булочки', 'Ватрушки' ] );
+
+	submitButton.addEventListener( 'click', async () => {
+
+		submitButton.disabled = true;
+
+		const data = [];
+		for ( let form of page.querySelectorAll( 'form' ) ) {
+
+			data.push( {
+				time: form.querySelector( '[name="time"]' ).value,
+				production: Array.from( form.querySelector( '[name="production"]' ).selectedOptions ).map( ( option ) => option.value ),
+			} );
+
+		}
+
+		data.sort( ( a, b ) => a.time > b.time ? 1 : -1 );
+
+		const day = ( new Date() ).getDay();
+
+		const getDataURL = ( uri ) => new window.Promise( async ( resolve, reject ) => {
+
+			const reader = new window.FileReader();
+
+			reader.addEventListener( 'error', reject );
+			reader.addEventListener( 'load', () => resolve( reader.result ) );
+
+			reader.readAsDataURL( await ( await window.fetch( uri ) ).blob() );
+
+		} );
+
+		const dataURL = await new window.Promise( async ( resolve, reject ) => {
+
+			const fixText = ( txt ) => window.String( txt )
+				.replace( /-/g, '‑' )
+				.replace( /"([^`]+)"/g, '«$1»' )
+				.replace( /'/g, '’' )
+			;
+
+			const img = new window.Image();
+
+			img.addEventListener( 'load', () => {
+
+				var canvas = document.createElement( 'canvas' );
+				canvas.width = 1080;
+				canvas.height = 1920;
+
+				var context = canvas.getContext( '2d' );
+				context.drawImage( img, 0, 0, 1080, 1920 );
+
+				resolve( canvas.toDataURL() );
+
+			} );
+
+			img.setAttribute( 'src', 'data:image/svg+xml;utf8,' + window.encodeURIComponent( `
+				<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+
+					<style>
+
+						@font-face {
+							font-family: "Open Sans Condensed Light";
+							src: local( "Open Sans Condensed Light" ),
+							url( "${ await getDataURL( '//irish-pub.by/@/OpenSansCondensed-Light.ttf' ) }" );
+						}
+
+						text {
+							font-family: "Open Sans Condensed Light", Arial, sans-serif;
+							font-size: 50px;
+							fill: #2a2829;
+						}
+
+						text,
+						text > * {
+							text-anchor: start;
+							alignment-baseline: text-bottom;
+						}
+
+					</style>
+
+					<rect width="1080" height="1920" fill="#f5f1e7" />
+
+					<text y="140" style="text-transform: uppercase; font-size: 70px">
+						<tspan x="70" dy="60">Расписание выпечки</tspan>
+						<tspan x="70" dy="70">хлеба на ${ [ 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье' ][ day - 1 ] }</tspan>
+					</text>
+
+					<text y="280">
+						${ data.map( ( { time, production } ) => `
+							<tspan x="70" dy="80">до ${ time }</tspan>
+							${ production.map( ( product, index ) => {
+				let result = '';
+				let row = 0;
+				product = fixText( product );
+				while ( product.length > 38 ) {
+					let i = product.lastIndexOf( ' ', 38 );
+					result += `<tspan x="${ row ? 300 : 270 }" dy="${ row || index ? 55 : 0 }">${ product.substring( 0, i ) }</tspan>`;
+					product = product.substring( i + 1 );
+					++row;
+				}
+				result += `<tspan x="${ row ? 315 : 270 }" dy="${ row || index ? 55 : 0 }">${ product }</tspan>`;
+				return result;
+			} ).join( '' ) }
+						` ).join( '' ) }
+					</text>
+
+					<image href="${ await getDataURL( day + '.png' ) }" y="1500" width="1080" height="363" />
+
+				</svg>
+			` ) );
+
+		} );
+
+		const a = document.createElement( 'a' );
+		a.setAttribute( 'href', dataURL );
+		a.setAttribute( 'download', 'schedule.png' );
+		a.style.display = 'none';
+
+		page.appendChild( a );
+		a.click();
+		page.removeChild( a );
+
+		submitButton.disabled = false;
+
+	} );
+
+</script>
+
+</body>
+
+</html>
