@@ -16,6 +16,7 @@
 		:before {
 			margin: 0;
 			padding: 0;
+			font-family: monospace;
 		}
 
 		ul {
@@ -24,6 +25,16 @@
 
 		body {
 			background: #fff;
+		}
+
+		form {
+			margin: 20px 10px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 5px;
+			text-transform: uppercase;
 		}
 
 		button {
@@ -242,18 +253,18 @@
 						${ data.map( ( { time, production } ) => `
 							<tspan x="70" dy="80">до ${ time }</tspan>
 							${ production.map( ( product, index ) => {
-				let result = '';
-				let row = 0;
-				product = fixText( product );
-				while ( product.length > 38 ) {
-					let i = product.lastIndexOf( ' ', 38 );
-					result += `<tspan x="${ row ? 300 : 270 }" dy="${ row || index ? 55 : 0 }">${ product.substring( 0, i ) }</tspan>`;
-					product = product.substring( i + 1 );
-					++row;
-				}
-				result += `<tspan x="${ row ? 315 : 270 }" dy="${ row || index ? 55 : 0 }">${ product }</tspan>`;
-				return result;
-			} ).join( '' ) }
+								let result = '';
+								let row = 0;
+								product = fixText( product );
+								while ( product.length > 38 ) {
+									let i = product.lastIndexOf( ' ', 38 );
+									result += `<tspan x="${ row ? 300 : 270 }" dy="${ row || index ? 55 : 0 }">${ product.substring( 0, i ) }</tspan>`;
+									product = product.substring( i + 1 );
+									++row;
+								}
+								result += `<tspan x="${ row ? 315 : 270 }" dy="${ row || index ? 55 : 0 }">${ product }</tspan>`;
+								return result;
+							} ).join( '' ) }
 						` ).join( '' ) }
 					</text>
 
