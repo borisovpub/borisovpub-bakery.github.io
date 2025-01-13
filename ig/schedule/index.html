@@ -37,6 +37,10 @@
 			text-transform: uppercase;
 		}
 
+		select {
+			width: 100%;
+		}
+
 		button {
 			display: block;
 			margin: 10px;
@@ -252,7 +256,7 @@
 					<text y="280">
 						${ data.map( ( { time, production } ) => `
 							<tspan x="70" dy="80">до ${ time }</tspan>
-							${ production.map( ( product, index ) => {
+							${ production.sort().map( ( product, index ) => {
 								let result = '';
 								let row = 0;
 								product = fixText( product );
