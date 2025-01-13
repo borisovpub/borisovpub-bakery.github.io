@@ -250,23 +250,23 @@
 
 					<text y="140" style="text-transform: uppercase; font-size: 70px">
 						<tspan x="70" dy="60">Расписание выпечки</tspan>
-						<tspan x="70" dy="70">хлеба на ${ [ 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье' ][ day - 1 ] }</tspan>
+						<tspan x="70" dy="80">хлеба на ${ [ 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье' ][ day - 1 ] }</tspan>
 					</text>
 
-					<text y="280">
+					<text y="300">
 						${ data.map( ( { time, production } ) => `
-							<tspan x="70" dy="80">до ${ time }</tspan>
+							<tspan x="70" dy="90">до ${ time }</tspan>
 							${ production.sort().map( ( product, index ) => {
 								let result = '';
 								let row = 0;
 								product = fixText( product );
 								while ( product.length > 38 ) {
 									let i = product.lastIndexOf( ' ', 38 );
-									result += `<tspan x="${ row ? 300 : 270 }" dy="${ row || index ? 55 : 0 }">${ product.substring( 0, i ) }</tspan>`;
+									result += `<tspan x="${ row ? 300 : 270 }" dy="${ row || index ? 60 : 0 }">${ product.substring( 0, i ) }</tspan>`;
 									product = product.substring( i + 1 );
 									++row;
 								}
-								result += `<tspan x="${ row ? 315 : 270 }" dy="${ row || index ? 55 : 0 }">${ product }</tspan>`;
+								result += `<tspan x="${ row ? 315 : 270 }" dy="${ row || index ? 60 : 0 }">${ product }</tspan>`;
 								return result;
 							} ).join( '' ) }
 						` ).join( '' ) }
