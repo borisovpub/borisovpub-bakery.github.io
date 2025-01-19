@@ -248,12 +248,12 @@
 
 					<rect width="1080" height="1920" fill="#f5e9cd" />
 
-					<text y="160" style="text-transform: uppercase; font-size: 70px">
+					<text y="180" style="text-transform: uppercase; font-size: 70px">
 						<tspan x="70" dy="60">Расписание выпечки</tspan>
-						<tspan x="70" dy="80">хлеба на ${ [ 'понедельник', 'вторник', 'среду', 'четверг', 'пятницу', 'субботу', 'воскресенье' ][ day - 1 ] }</tspan>
+						<tspan x="70" dy="80">хлеба на ${ [ 'воскресенье', 'понедельник', 'вторник', 'среду', 'четверг', 'пятницу', 'субботу' ][ day ] }</tspan>
 					</text>
 
-					<text y="320">
+					<text y="340">
 						${ data.map( ( { time, production } ) => `
 							<tspan x="70" dy="90">до ${ time }</tspan>
 							${ production.sort().map( ( product, index ) => {
