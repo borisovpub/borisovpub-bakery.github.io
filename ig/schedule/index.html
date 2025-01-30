@@ -147,11 +147,11 @@
 	const bakery = await iiko( 'c0fb15d5-a217-41d1-b035-e32aa2043b94' );
 
 	bakery.groups.Bread.products.forEach( ( bread ) => {
-		breads.push( bread.ru );
+		breads.push( bread.name.ru );
 	} );
 
 	bakery.groups.Pastries.products.forEach( ( pastry ) => {
-		let name = aliases[ aliasExp.exec( pastry.ru )[ 0 ] ] || pastry.ru;
+		let name = aliases[ aliasExp.exec( pastry.name.ru )[ 0 ] ] || pastry.name.ru;
 		if ( !pastries.includes( name ) ) {
 			pastries.push( name );
 		}
