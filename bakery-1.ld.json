@@ -1,0 +1,84 @@
+{
+
+	"@context": "http://www.schema.org",
+
+	"@type": [
+		"Organization",
+		"Place",
+		"LocalBusiness",
+		"FoodEstablishment",
+		"CafeOrCoffeeShop",
+		"Bakery"
+	],
+
+	"name": [
+		{ "@language": "ru", "@value": "Пекарня «Колоски»" },
+		{ "@language": "be", "@value": "Пякарня «Каласкі»" },
+		{ "@language": "en", "@value": "Bakery «Spikelets»" }
+	],
+
+	"url": "https://bakery.irish-pub.by",
+
+	"image": "https://bakery.irish-pub.by/@/av.png",
+	"logo": "https://bakery.irish-pub.by/@/av.png",
+
+	"geo": {
+		"@type": "GeoCoordinates",
+		"latitude": "54.222662",
+		"longitude": "28.488434"
+	},
+
+	"address": {
+		"@type": "PostalAddress",
+		"addressCountry": "BY",
+		"addressRegion": [
+			{ "@language": "ru", "@value": "Минская область" },
+			{ "@language": "be", "@value": "Мінская вобласць" },
+			{ "@language": "en", "@value": "Minsk region" }
+		],
+		"streetAddress": [
+			{ "@language": "ru", "@value": "Борисов, Ватутина 32а" },
+			{ "@language": "be", "@value": "Барысаў, Ватуціна, 32а" },
+			{ "@language": "en", "@value": "Barysaw, Vatutina, 32a" }
+		],
+		"postalCode": "222520"
+	},
+
+	"telephone": [ "+375291739600" ],
+	"contactPoint": {
+		"@type": "ContactPoint",
+		"contactType": "customer service",
+		"email": "bakery@irish-pub.by",
+		"telephone": [ "+375291739600" ],
+		"availableLanguage": [ "Russian", "Belarusian", "English" ],
+		"sameAs": [
+			"//t.me/borisovbakery",
+			"//viber.click/375291739600",
+			"//wa.me/375291739600"
+		]
+	},
+
+	"sameAs": [
+
+		"https://www.google.com/maps/place/?q=place_id:ChIJmdqc08j52kYRq1LCEzzR6q8",
+		"https://yandex.by/profile/2588926986",
+		"https://yandex.by/maps/org/2588926986",
+
+		"https://vk.com/borisov_bakery",
+		"https://facebook.com/borisovbakery",
+		"https://instagram.com/borisov_bakery"
+
+	],
+
+	"openingHoursSpecification": {
+		"@type": "OpeningHoursSpecification",
+		"opens": "07:30",
+		"closes": "20:00"
+	},
+
+	"priceRange": "$",
+
+	"acceptsReservations": "False",
+	"smokingAllowed": "False"
+
+}

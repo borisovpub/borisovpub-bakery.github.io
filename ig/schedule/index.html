@@ -74,7 +74,8 @@
 
 <script type="module">
 
-	import iiko from '//irish-pub.by/@/iiko.max.mjs';
+	import iiko from '//irish-pub.by/@/js/iiko.mjs';
+	// import iiko from '//borisovpub.io/@/js/iiko.mjs';
 
 	const page = document.querySelector( '.page' );
 
@@ -147,11 +148,11 @@
 	const bakery = await iiko( 'c0fb15d5-a217-41d1-b035-e32aa2043b94' );
 
 	bakery.groups.Bread.products.forEach( ( bread ) => {
-		breads.push( bread.ru );
+		breads.push( bread.name.ru );
 	} );
 
 	bakery.groups.Pastries.products.forEach( ( pastry ) => {
-		let name = aliases[ aliasExp.exec( pastry.ru )[ 0 ] ] || pastry.ru;
+		let name = aliases[ aliasExp.exec( pastry.name.ru )?.[ 0 ] ] || pastry.name.ru;
 		if ( !pastries.includes( name ) ) {
 			pastries.push( name );
 		}
@@ -176,10 +177,14 @@
 		const data = [];
 		for ( let form of page.querySelectorAll( 'form' ) ) {
 
-			data.push( {
+			form = {
 				time: form.querySelector( '[name="time"]' ).value,
 				production: Array.from( form.querySelector( '[name="production"]' ).selectedOptions ).map( ( option ) => option.value ),
-			} );
+			};
+
+			if ( !form.time ) continue;
+
+			data.push( form );
 
 		}
 
@@ -210,11 +215,11 @@
 
 			img.addEventListener( 'load', () => {
 
-				var canvas = document.createElement( 'canvas' );
+				let canvas = document.createElement( 'canvas' );
 				canvas.width = 1080;
 				canvas.height = 1920;
 
-				var context = canvas.getContext( '2d' );
+				let context = canvas.getContext( '2d' );
 				context.drawImage( img, 0, 0, 1080, 1920 );
 
 				resolve( canvas.toDataURL() );
