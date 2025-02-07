@@ -3,7 +3,7 @@
 
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# place: http://ogp.me/ns/place# restaurant: http://ogp.me/ns/restaurant#">
 
-	<title>Пекарня «Колоски»</title>
+	<title>Ассортимент | Пекарня «Колоски»</title>
 
 	<link rel="canonical" href="/ru/menu/" />
 
@@ -16,7 +16,7 @@
 	<meta property="og:type" content="restaurant.restaurant" />
 	<meta property="og:url" content="https://irish-pub.by/ru/" />
 	<meta property="og:image" content="https://irish-pub.by/@/bg.webp" />
-	<meta property="og:title" content="Пекарня «Колоски»" />
+	<meta property="og:title" content="Ассортимент пекарни «Колоски»" />
 	<meta property="og:description" content="Свежий домашний хлеб на закваске и изысканные десерты - это всё вы сможете найти в нашей Пекарне «Колоски»" name="description" />
 	<meta property="og:locale" content="ru_RU" />
 
@@ -29,222 +29,163 @@
 
 	<style type="text/css">
 
-		@import url( "https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" );
-
-		.layout > .content .right {
-			padding: 0;
-			margin-bottom: 0;
-		}
-
-		section {
-			height: calc( 100vh - 50px );
-			width: 100%;
-			font-family: 'Roboto Condensed', Arial, sans-serif;
-			text-transform: uppercase;
-			font-size: 20px;
-			position: relative;
-		}
-
-		section video {
-			object-fit: cover;
-			height: 100%;
-			width: 100%;
-		}
-
-		section img {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate( -50%, calc( -50% - 105px ) );
-			opacity: 0.5;
-		}
-
-		section div {
-			position: absolute;
-			text-align: center;
-			font-size: 60px;
-			width: 100%;
-			line-height: 60px;
-			left: 50%;
-			top: 50%;
-			transform: translate( -50%, calc( -50% + 50px ) );
-			filter: drop-shadow( 0 0 15px #000 );
-			transition: none;
-			color: #fff;
-		}
-
-		section div i {
-			color: #f90;
-			display: block;
-			font-size: 30px;
-			font-style: normal;
-		}
-
-		section div:before {
-			content: "";
-			display: block;
-			width: 300px;
-			height: 300px;
-			border-radius: 150px;
-			background: rgba( 0, 0, 0, 0.5 );
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			transform: translate( -50%, -50% );
-			z-index: -1;
-			filter: blur( 75px );
-		}
-
-		nav .bottom {
-
-		}
-
-		nav .bottom li {
-			position: relative;
-			margin: 0;
-		}
-
-		nav .bottom a {
-			display: flex;
-			align-items: center;
-			border-radius: 4px;
-			padding: 2px 12px 2px 14px;
-			min-height: 28px;
-			margin: 0 0 7px 0;
-		}
-
-		nav .bottom a:hover {
-			background: #f5f5f5;
-		}
-
-		nav .bottom a:active {
-			background: #000;
-			color: #fff;
-		}
-
 		main {
 			display: flex;
-			justify-content: space-between;
-		}
-
-		main h1,
-		main h2 {
-			font-weight: 700;
-			font-size: 30px;
-			line-height: 36px;
-			margin: 0 0 13px 0;
-		}
-
-		.main {
-			width: 75%;
-			padding: 20px;
-			margin-bottom: 50px;
-			font-size: 18px;
-		}
-
-		.main p {
-			margin: 10px 0 30px;
-		}
-
-		.main b {
-			font-weight: 600;
-		}
-
-		.aside {
-			display: flex;
 			flex-direction: column;
-			gap: 20px;
-			max-width: 228px;
-			padding: 20px 0 0 20px;
-			border-left: 1px solid var( --common-splitter-bg );
+			gap: 25px;
 		}
 
-		.aside a {
-			display: flex;
-			flex-direction: column;
-			border-radius: 12px;
-			width: 100%;
-			background: #fff;
-			position: relative;
-			border: 1px solid #eee;
-			cursor: pointer;
-			overflow: hidden;
-			text-align: center;
-			font-size: 17px;
-			font-weight: 600;
-			white-space: nowrap;
-		}
-
-		.aside img {
-			width: 100%;
-			height: auto;
-			object-fit: contain;
-		}
-
-		.aside span {
-			padding: 10px 0 15px;
-			margin: 0 auto;
-		}
-
-	</style>
-
-	<style type="text/css" media="all and ( min-width: 1140px )">
-
-		footer .company-name {
+		article {
 			font-size: 15px;
+			line-height: 18px;
+			min-width: max( 360px, 40% );
+			width: 100%;
 		}
 
-		.aside a:hover {
-			transform: translateY( -4px );
-			box-shadow: 0 7px 19px -1px hsl( 240deg 4% 69% / 30% );
+		article ul {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0 40px;
+		}
+
+		.dish {
+			display: grid;
+			grid-template-columns: auto min-content;
+			grid-gap: 0 20px;
+			margin: 0 0 5px 0;
+			width: calc( 50% - 20px );
+		}
+
+		.dish > :has( > .name ) {
+			text-indent: -20px;
+			padding-left: 20px;
+		}
+
+		.dish > ul {
+			margin-left: 30px;
+			grid-column-start: 1;
+			grid-column-end: 3;
+		}
+
+		.dish:has( > .desc :is( span:not( :empty ), div > img[src] ) ) > :has( > .name ) {
+			cursor: pointer;
+		}
+
+		.dish:not( .open ) > .desc {
+			height: 0;
+		}
+
+		.desc {
+			grid-column-start: 1;
+			grid-column-end: 3;
+			display: flex;
+			justify-content: flex-end;
+			/*noinspection CssInvalidFunction*/
+			height: calc-size( auto, size );
+			font-size: 13px;
+			line-height: 16px;
+			overflow: hidden;
+		}
+
+		.dish.lazy img,
+		.desc :is( span:empty, img:not( [src] ), div:has( img:not( [src] ) ) ) {
+			display: none;
+		}
+
+		.desc > span {
+			opacity: 0.5;
+			white-space: pre-wrap;
+			padding: 5px 10px 5px 0;
+			margin-right: 10px;
+			border-right: 1px solid var( --common-splitter-bg, #eee );
+		}
+
+		.desc > div {
+			position: relative;
+			padding: 5px 0;
+			display: flex;
+			flex-direction: column;
+			row-gap: 10px;
+		}
+
+		.desc > .loading:after {
+			position: absolute;
+			left: calc( 50px - 24px / 2 );
+			top: calc( 5px + 50px - 24px / 2 );
+		}
+
+		.desc img {
+			border-radius: 8px;
+			overflow: hidden;
+			object-fit: cover;
+		}
+
+		.desc a {
+			background: #1A73E8;
+			color: #fff;
+			position: relative;
+			border-radius: 4px;
+			padding: 4px;
+			text-align: center;
+			width: 100px;
+		}
+
+		.desc a:hover {
+			background: #003cd4;
+		}
+
+		.weight {
+			font-size: 12px;
+			line-height: 15px;
+			opacity: 0.4;
+		}
+
+		.weight:after {
+			content: " г";
+		}
+
+		.price {
+			font-weight: 500;
+			text-align: right;
+		}
+
+		:is( ul, .weight, .price ):empty {
+			display: none;
+		}
+
+		nav .bottom img {
+			display: block;
+			overflow: hidden;
+			width: 100%;
+			max-height: calc( 100vh - 60px - 90px );
+			object-fit: cover;
 		}
 
 	</style>
 
 	<style type="text/css" media="all and ( max-width: 1139px )">
 
-		.main {
-			padding: 0;
+		main {
+			align-items: start;
+			gap: 10px;
 		}
 
-		.main div {
+		main h2 {
+			font-size: 20px;
+		}
+
+		article {
+			max-width: calc( 50% - 10px / 2 );
 			border-radius: 8px;
 			background: #fff;
 			padding: 8px 16px;
 		}
 
-		.aside {
-			padding-top: 0;
-		}
-
 		@media all and ( max-width: 800px ) {
 
-			section div {
-				font-size: 7.7vw;
-				line-height: 7.7vw;
-			}
-
-			section div i {
-				font-size: 4.5vw;
-			}
-
-			main {
-				flex-direction: column;
-			}
-
-			.main {
-				width: 100%;
-				margin-bottom: 20px;
-			}
-
-			.aside {
-				padding: 0;
+			article {
 				max-width: 100%;
-				margin-bottom: 50px;
-				gap: 10px;
-				flex-direction: row;
-				align-items: flex-end;
-				justify-content: space-evenly;
+				min-width: min-content;
 			}
 
 		}
@@ -252,7 +193,24 @@
 	</style>
 
 	<template id="group">
-		<li><a href="/ru/menu/"></a></li>
+		<article>
+			<h2 class="title"></h2>
+			<ul></ul>
+		</article>
+	</template>
+
+	<template id="dish">
+		<li class="dish lazy">
+			<div><span class="name"></span>  <span class="weight"></span></div>
+			<div class="price"></div>
+			<div class="desc">
+				<span></span>
+				<div>
+					<img height="100" width="100" loading="lazy" />
+				</div>
+			</div>
+			<ul></ul>
+		</li>
 	</template>
 
 	<script type="module">
@@ -274,8 +232,72 @@
 			.replace( /\s+(с|со|к|в|на|из|и)\s+/g, ' $1 ' ) // всталяем неразрывный пробел после предлогов
 		;
 
-		const nav =				document.querySelector( 'nav .bottom' );
+		/**
+		 * @param { number | string } value
+		 * @returns { string }
+		 */
+		const toNumber = ( value ) => String( value || 0 ).replace( '.', ',' );
+
+		const main =			document.querySelector( 'main' );
+
 		const groupTemplate =	document.querySelector( '#group' );
+		const dishTemplate =	document.querySelector( '#dish' );
+
+		/**
+		 * @param { Product } product
+		 * @returns { Promise< DocumentFragment > }
+		 */
+		const createDishProduct = async ( product ) => {
+
+			let result = dishTemplate.content.cloneNode( true ).querySelector( '.dish' );
+
+			result.querySelector( '.name' ).textContent = getText( product.name );
+
+			result.querySelector( ':has( .name )' ).addEventListener( 'click', () => {
+				result.classList.remove( 'lazy' );
+				if ( !result.classList.contains( 'open' ) ) {
+					main.querySelectorAll( '.open' ).forEach( ( o ) =>
+						o.classList.remove( 'open' )
+					);
+				}
+				result.classList.toggle( 'open' );
+			} );
+
+
+			if ( product.modifiers ) {
+
+				for ( let child of product.modifiers ) {
+					result.querySelector( 'ul' ).appendChild( await createDishProduct( child ) );
+				}
+
+			} else {
+
+				let v;
+
+				if ( ( v = product?.units?.[ 0 ] ) ) {
+					if ( v.size ) result.querySelector( '.weight' ).textContent = v.size;
+					if ( v.price ) result.querySelector( '.price' ).textContent = toNumber( ( v.price / 100 ).toFixed( 2 ) );
+				}
+
+			}
+
+			if ( product.desc ) {
+				result.querySelector( '.desc span' ).textContent = getText( product.desc );
+			}
+
+			if ( product.img ) {
+				let container = result.querySelector( '.desc div' );
+				let img = result.querySelector( '.desc img' );
+				container.classList.add( 'loading' );
+				img.addEventListener( 'load', () => container.classList.remove( 'loading' ) );
+				img.setAttribute( 'alt', product.name.ru || '' );
+				img.setAttribute( 'src', '//wsrv.nl/?h=100&output=webp&maxage=31d&url=' + product.img );
+				img.setAttribute( 'crossorigin', 'anonymous' );
+			}
+
+			return result;
+
+		};
 
 		/**
 		 * @param { Group } group
@@ -284,20 +306,27 @@
 		const createDishGroup = async ( group ) => {
 
 			let result = groupTemplate.content.cloneNode( true );
-			result.querySelector( 'a' ).textContent = getText( group.name );
+			let title = result.querySelector( '.title' );
+
+			title.textContent = getText( group.name );
+
+			for ( let product of group.products ) {
+				result.querySelector( 'ul' ).appendChild( await createDishProduct( product ) );
+			}
+
 			return result;
 
 		};
 
-		nav.classList.add( 'loading' );
+		main.classList.add( 'loading' );
 
 		for ( let group of ( await bakery ).groups ) {
 			if ( !group.noSite ) {
-				nav.appendChild( await createDishGroup( group ) );
+				main.appendChild( await createDishGroup( group ) );
 			}
 		}
 
-		nav.classList.remove( 'loading' );
+		main.classList.remove( 'loading' );
 
 	</script>
 
@@ -313,6 +342,12 @@
 					"position": 1,
 					"name": "Пекарня «Колоски»",
 					"item": "https://bakery.irish-pub.by/ru/"
+				},
+				{
+					"@type": "ListItem",
+					"position": 2,
+					"name": "Ассортимент",
+					"item": "https://bakery.irish-pub.by/ru/menu/"
 				}
 			]
 		}
@@ -370,52 +405,20 @@
 		<div class="back-to-top"></div>
 	</div>
 
-	<section>
-
-		<video autoplay="autoplay" height="720" loop="loop" muted="muted" playsinline="playsinline" poster="/@/bg.webp" width="1280">
-			<source src="/@/bg.webm" type="video/webm" />
-			<source src="/@/bg.mp4" type="video/mp4" />
-		</video>
-
-		<div>Пекарня<br/>«Колоски»<i>в Борисове</i></div>
-
-		<img alt="🌿" height="100" src="/@/logo.svg" width="100" class="logo" />
-
-	</section>
-
 	<div class="content">
 		<div class="left">
 			<nav>
 				<ul class="top">
 					<li><a class="info">Адрес и контакты</a></li>
-					<li><a href="/ru/menu/">Ассортимент</a></li>
+					<li><h1>Ассортимент</h1></li>
 				</ul>
 				<ul class="bottom">
-
+					<img loading="lazy" src="/@/sl.webp" width="444" height="800" alt="Набор пирожных" />
 				</ul>
 			</nav>
 		</div>
 		<main class="right">
-			<div class="main">
-				<h1>О Пекарне</h1>
-				<div>
-					<p>Свежий домашний хлеб на закваске, изысканные десерты и вкусный кофе - это всё вы сможете найти в нашей <b>Пекарне «Колоски»</b>. Уютный интерьер и улыбчивый персонал создают неповторимую атмосферу.</p>
-					<p>Наши пекари создают настоящий крафтовый хлеб только из качественных продуктов. Хлеб на закваске, или по-другому бездрожжевой хлеб - это не только очень вкусно, но и полезно. Ведь закваска богата пищевыми волокнами и пребиотиками. А они очень полезные для микрофлоры кишечника.</p>
-					<p>У нас вы сможете съесть воздушный бриошь или изысканный десерт. А также взять на вынос хрустящий французский багет или ржаной хлеб, чтобы насладиться свежей выпечкой у себя дома.</p>
-					<p>В хорошую погоду вы сможете насладиться нашей выпечкой на террасе у пекарни, выпив кофе или чаю на свежем воздухе.</p>
-					<p>Ждём Вас в гости!</p>
-				</div>
-			</div>
-			<div class="aside">
-				<a href="/ru/menu/">
-					<img alt="Хлеб с яблоками, изюмом и корицей" width="420" height="420" loading="lazy" src="/@/pastries.webp" />
-					<span>Выпечка</span>
-				</a>
-				<a href="/ru/menu/">
-					<img alt="Торт &quot;Ленинградский&quot;" width="420" height="420" loading="lazy" src="/@/desserts.webp" />
-					<span>Десерты</span>
-				</a>
-			</div>
+
 		</main>
 	</div>
 
